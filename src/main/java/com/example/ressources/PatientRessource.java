@@ -17,17 +17,14 @@ public class PatientRessource {
     private PatientService patientService;
     
     @POST
-    public Response createPatient(PatientCreatedDTO dto) {
-        Patient patient=PatientMapper.toEntity(dto);
-        Patient createdPatient = patientService.create(patient);
-        
+    public Responnse createPatient(PatientCreatedDTO patientCreatedDTO){
+        Patient patient= PatientMapper.toEntity(patientCreatedDTO);
+        Patient createdPatient=patientService.create(patient);
+        return Response.status(Response.Status.CREATED).entity(PatientMapper.toDTO(createdPatient)).build();
     }
     @GET
-    public Response getAllPatients(){
-        if(patientService.getAll().isEmpty()){
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
-        return Response.ok(patientService.getAll()).build();
+    public List<PatientDTO> getAllPatients(){
+        return patientService.findAll().stream().map(PatientMapper::toDTO).toList();
     }
     @GET
     @Path("/{id}")
@@ -37,7 +34,7 @@ public class PatientRessource {
             return Response.status(Response.Status.NOT_FOUND).build();
 
         }
-        return Response.ok(patient).build();
+        return Response.ok(PatientMapper.toDTO(patient)).build();
 
     }
     @DELETE

@@ -3,18 +3,20 @@ package com.example.dto;
 
 public class ActeMedicalDTO {
     private int id;
-    private int idRendezVous;
-    private int idServiceMedical;
-    private String notes;
+    private int idRv;
+    private int numSM;
+    private String descriptionAM;
+    private float tarrifAM;
 
     public ActeMedicalDTO() {
     }
 
-    public ActeMedicalDTO(int id, int idRendezVous, int idServiceMedical, String notes) {
+    public ActeMedicalDTO(int id, int idRv, int numSM, String descriptionAM, float tarrifAM) {
         this.id = id;
-        this.idRendezVous = idRendezVous;
-        this.idServiceMedical = idServiceMedical;
-        this.notes = notes;
+        this.idRv = idRv;
+        this.numSM = numSM;
+        this.descriptionAM = descriptionAM;
+        this.tarrifAM = tarrifAM;
     }
 
     public int getId() {
@@ -25,27 +27,35 @@ public class ActeMedicalDTO {
         this.id = id;
     }
 
-    public int getIdRendezVous() {
-        return idRendezVous;
+    public int getIdRv() {
+        return idRv;
     }
 
-    public void setIdRendezVous(int idRendezVous) {
-        this.idRendezVous = idRendezVous;
+    public void setIdRv(int idRv) {
+        this.idRv = idRv;
     }
 
-    public int getIdServiceMedical() {
-        return idServiceMedical;
+    public int getNumSM() {
+        return numSM;
     }
 
-    public void setIdServiceMedical(int idServiceMedical) {
-        this.idServiceMedical = idServiceMedical;
+    public void setNumSM(int numSM) {
+        this.numSM = numSM;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getDescriptionAM() {
+        return descriptionAM;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setDescriptionAM(String descriptionAM) {
+        this.descriptionAM = descriptionAM;
+    }
+
+    public float getTarrifAM() {
+        return tarrifAM;
+    }
+
+    public void setTarrifAM(float tarrifAM) {
+        this.tarrifAM = tarrifAM;
     }
 }

@@ -8,9 +8,10 @@ public class ActeMedicalMapper {
     
     public static ActeMedical toEntity(ActeMedicalCreatedDTO dto) {
         ActeMedical acteMedical = new ActeMedical();
-        acteMedical.setIdRv(dto.getIdRendezVous());
-        acteMedical.setNumSM(dto.getIdServiceMedical());
-        acteMedical.setNotes(dto.getNotes());
+        acteMedical.setIdRv(dto.getIdRv());
+        acteMedical.setNumSM(dto.getNumSM());
+        acteMedical.setDescriptionAM(dto.getDescriptionAM());
+        acteMedical.setTarrifAM(dto.getTarrifAM());
         return acteMedical;
     }
     
@@ -19,7 +20,8 @@ public class ActeMedicalMapper {
             acteMedical.getIdAM(),
             acteMedical.getIdRv(),
             acteMedical.getNumSM(),
-            acteMedical.getNotes()
+            acteMedical.getDescriptionAM(),
+            acteMedical.getTarrifAM()
         );
     }
 }

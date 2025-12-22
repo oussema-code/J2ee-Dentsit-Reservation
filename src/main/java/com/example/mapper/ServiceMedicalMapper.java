@@ -8,10 +8,10 @@ public class ServiceMedicalMapper {
     
     public static ServiceMedical toEntity(ServiceMedicalCreatedDTO dto) {
         ServiceMedical serviceMedical = new ServiceMedical();
-        serviceMedical.setNomSM(dto.getNom());
-        serviceMedical.setTypeSM(dto.getType());
-        serviceMedical.setDescriptionSM(dto.getDescription());
-        serviceMedical.setTarifSM(dto.getTarif());
+        serviceMedical.setNomSM(dto.getNomSM());
+        serviceMedical.setTypeSM(dto.getTypeSM());
+        serviceMedical.setDescriptionSM(dto.getDescriptionSM());
+        serviceMedical.setTarifSM(dto.getTarifSM());
         return serviceMedical;
     }
     
