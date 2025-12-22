@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence 
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    
+    <persistence-unit name="j2eePU" transaction-type="JTA">
+        <!-- JPA provider (Hibernate is included in WildFly) -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <!-- JNDI datasource name configured in WildFly -->
+        <!-- Change 'MySQLDS' to match your WildFly datasource name -->
+        <jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
+        
+        <!-- Entity classes (optional with auto-discovery, but explicit is better) -->
+        <class>com.example.entity.Patient</class>
+        <class>com.example.entity.Dentiste</class>
+        <class>com.example.entity.RendezVous</class>
+        <class>com.example.entity.ServiceMedical</class>
+        <class>com.example.entity.ActMedical</class>
+        <class>com.example.entity.SexeP</class>
+        <class>com.example.entity.GroupSanguinP</class>
+        
+        <!-- Exclude unlisted classes for better control -->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        
+        <properties>
+            <!-- Hibernate properties -->
+            <!-- Schema generation: create, create-drop, update, validate, none -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            
+            <!-- Show SQL in logs -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            
+            <!-- SQL dialect for your database -->
+            <!-- Use MySQL8Dialect for MySQL 8.x, MySQL5Dialect for older versions -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            
+            <!-- Performance and caching -->
+            <property name="hibernate.jdbc.batch_size" value="20"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+        </properties>
+    </persistence-unit>
+    
+</persistence>

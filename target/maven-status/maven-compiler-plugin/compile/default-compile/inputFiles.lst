@@ -1,0 +1,13 @@
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/ActeMedical.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/Dentiste.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/GroupSanguinP.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/Patient.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/RendezVous.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/ServiceMedical.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/SexeD.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/entitys/SexeP.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/service/ActeMedicalService.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/service/DentisteService.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/service/PatientService.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/service/RendezVousService.java
+/home/oussema/krayetFac/j2eeProject/j2eeproject/src/main/java/com/example/service/ServiceMedicalService.java
