@@ -1,58 +1,71 @@
 //class for response dto
 package com.example.dto;
 
+import com.example.entitys.GroupSanguinP;
 import com.example.entitys.SexeP;
+import java.util.Date;
 
 public class PatientDTO {
-    private int id;
-    private String nom;
-    private String prenom;
-    private String email;
+    private int idP;
+    private String nomP;
+    private String prenomP;
+    private String emailP;
+    private String mdpP;
+    private Date dateNP;
     private String photoP;
+    private GroupSanguinP groupeSanguinP;
     private SexeP sexeP;
+    private String recouvrementP;
 
     public PatientDTO() {
     }
 
-    public PatientDTO(int id, String nom, String prenom, String email, String photoP, SexeP sexeP) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        this.photoP = photoP;
-        this.sexeP = sexeP;
+    public int getIdP() {
+        return idP;
     }
 
-    public int getId() {
-        return id;
+    public void setIdP(int idP) {
+        this.idP = idP;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getNomP() {
+        return nomP;
     }
 
-    public String getNom() {
-        return nom;
+    public void setNomP(String nomP) {
+        this.nomP = nomP;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getPrenomP() {
+        return prenomP;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public void setPrenomP(String prenomP) {
+        this.prenomP = prenomP;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public String getEmailP() {
+        return emailP;
     }
 
-    public String getEmail() {
-        return email;
+    public void setEmailP(String emailP) {
+        this.emailP = emailP;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getMdpP() {
+        return mdpP;
+    }
+
+    public void setMdpP(String mdpP) {
+        this.mdpP = mdpP;
+    }
+
+    public Date getDateNP() {
+        return dateNP;
+    }
+
+    public void setDateNP(Date dateNP) {
+        this.dateNP = dateNP;
     }
 
     public String getPhotoP() {
@@ -63,11 +76,27 @@ public class PatientDTO {
         this.photoP = photoP;
     }
 
+    public GroupSanguinP getGroupeSanguinP() {
+        return groupeSanguinP;
+    }
+
+    public void setGroupeSanguinP(GroupSanguinP groupeSanguinP) {
+        this.groupeSanguinP = groupeSanguinP;
+    }
+
     public SexeP getSexeP() {
         return sexeP;
     }
 
     public void setSexeP(SexeP sexeP) {
         this.sexeP = sexeP;
+    }
+
+    public String getRecouvrementP() {
+        return recouvrementP;
+    }
+
+    public void setRecouvrementP(String recouvrementP) {
+        this.recouvrementP = recouvrementP;
     }
 }

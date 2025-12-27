@@ -6,19 +6,19 @@ public class ActeMedical {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAM;
-    @Column(nullable= false)
-    private int idRv;
-    @Column(nullable= false)
-    private int numSM;
+    
     private String descriptionAM;
+    
     @Column(length = 6, precision = 2)
     private float tarrifAM;
+    
     //relations
     @ManyToOne
-    @JoinColumn(name = "idRv")
+    @JoinColumn(name = "idRv", nullable = false)
     private RendezVous rendezVous;
+    
     @ManyToOne
-    @JoinColumn(name = "numSM")
+    @JoinColumn(name = "numSM", nullable = false)
     private ServiceMedical serviceMedical;
     // getters & setters
     public int getIdAM() {
@@ -27,18 +27,7 @@ public class ActeMedical {
     public void setIdAM(int idAM) {
         this.idAM = idAM;
     }
-    public int getIdRv() {
-        return idRv;
-    }
-    public void setIdRv(int idRv) {
-        this.idRv = idRv;
-    }
-    public int getNumSM() {
-        return numSM;
-    }
-    public void setNumSM(int numSM) {
-        this.numSM = numSM;
-    }
+    
     public String getDescriptionAM() {
         return descriptionAM;
     }

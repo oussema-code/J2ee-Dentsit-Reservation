@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 @Table(name = "dentiste")
 public class Dentiste {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 8)
     private int idD;
     @Column(nullable = false, length = 100) 

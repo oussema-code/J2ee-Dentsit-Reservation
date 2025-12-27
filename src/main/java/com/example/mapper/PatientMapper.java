@@ -44,12 +44,17 @@ public class PatientMapper {
     }
     
     public static PatientDTO toDTO(Patient patient) {
-        return new PatientDTO(
-            patient.getIdP(),
-            patient.getNomP(),
-            patient.getPrenomP(),
-            patient.getEmailP(),
-           
-        );
+        PatientDTO dto = new PatientDTO();
+        dto.setIdP(patient.getIdP());
+        dto.setNomP(patient.getNomP());
+        dto.setPrenomP(patient.getPrenomP());
+        dto.setEmailP(patient.getEmailP());
+        dto.setMdpP(patient.getMdpP());
+        dto.setDateNP(patient.getDateNP());
+        dto.setPhotoP(patient.getPhotoP());
+        dto.setGroupeSanguinP(patient.getGroupeSanguinP());
+        dto.setSexeP(patient.getSexeP());
+        dto.setRecouvrementP(patient.getRecouvrementP());
+        return dto;
     }
 }

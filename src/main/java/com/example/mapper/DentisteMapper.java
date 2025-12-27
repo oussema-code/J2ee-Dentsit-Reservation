@@ -39,7 +39,9 @@ public class DentisteMapper {
             dentiste.getPrenomD(),
             dentiste.getEmailD(),
             dentiste.getSpecialiteD(),
-            
+            dentiste.getPhotoD(),
+            dentiste.getSexeD(),
+            dentiste.getTelD()
         );
     }
 }

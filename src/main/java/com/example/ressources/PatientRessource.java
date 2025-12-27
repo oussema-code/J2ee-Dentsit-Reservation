@@ -1,6 +1,8 @@
 package com.example.ressources;
 
+import java.util.List;
 import com.example.dto.PatientCreatedDTO;
+import com.example.dto.PatientDTO;
 import com.example.entitys.Patient;
 import com.example.mapper.PatientMapper;
 import com.example.service.PatientService;
@@ -17,7 +19,7 @@ public class PatientRessource {
     private PatientService patientService;
     
     @POST
-    public Responnse createPatient(PatientCreatedDTO patientCreatedDTO){
+    public Response createPatient(PatientCreatedDTO patientCreatedDTO){
         Patient patient= PatientMapper.toEntity(patientCreatedDTO);
         Patient createdPatient=patientService.create(patient);
         return Response.status(Response.Status.CREATED).entity(PatientMapper.toDTO(createdPatient)).build();
@@ -54,7 +56,7 @@ public class PatientRessource {
         if(existingPatient == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        patient.setId(id);// ensure the ID is set and hibernate knows it's an update and dont consider it a new entity
+        patient.setIdP(id);// ensure the ID is set and hibernate knows it's an update and dont consider it a new entity
         Patient updatedPatient = patientService.update(patient);
         return Response.ok(updatedPatient).build();
     }

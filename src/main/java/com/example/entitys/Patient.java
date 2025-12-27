@@ -9,6 +9,7 @@ import java.util.List;
 public class Patient {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 8)
     private int idP;
 
@@ -22,8 +23,7 @@ public class Patient {
     private String emailP;
 
     private Date dateNP;
-    @Column(length = 100)
-
+    @Column(columnDefinition = "LONGTEXT")
     private String photoP;
 
     @Column(length = 2)

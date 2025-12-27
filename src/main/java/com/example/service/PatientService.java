@@ -1,16 +1,15 @@
 package com.example.service;
-import javax.swing.text.html.parser.Entity;
-
+import java.util.List;
 import com.example.entitys.Patient;
-
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-@Stateless
 
+@Stateless
 public class PatientService {
     @PersistenceContext
     private EntityManager em;
+    
     //Create 
     public Patient create(Patient patient){
         em.persist(patient);

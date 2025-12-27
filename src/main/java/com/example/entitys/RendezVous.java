@@ -13,24 +13,27 @@ public class RendezVous {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//auto increment id
     private int idRv;
-    @Column(nullable = false,length = 8)
-    private int idP;
-    @Column(nullable = false,length = 8)
-    private int idD;
+    
     @Column(nullable = false)
     private Date dateRv;
+    
     @Column(nullable = false)
     private Time heureRv;
+    
     @Column(nullable = false,length = 100)
     private String statutRv;
+    
     private String descriptionRv;
+    
     //relations
     @ManyToOne
-    @JoinColumn(name = "idP")
+    @JoinColumn(name = "idP", nullable = false)
     private Patient patient;
+    
     @ManyToOne
-    @JoinColumn(name="idD")
+    @JoinColumn(name="idD", nullable = false)
     private Dentiste dentiste;
+    
     @OneToMany(mappedBy = "rendezVous")
     private List<ActeMedical> actMedicals;
     // getters & setters
@@ -40,18 +43,7 @@ public class RendezVous {
     public void setIdRv(int idRv) {
         this.idRv = idRv;
     }
-    public int getIdP() {
-        return idP;
-    }
-    public void setIdP(int idP) {
-        this.idP = idP;
-    }
-    public int getIdD() {
-        return idD;
-    }
-    public void setIdD(int idD) {
-        this.idD = idD;
-    }
+    
     public Date getDateRv() {
         return dateRv;
     }
