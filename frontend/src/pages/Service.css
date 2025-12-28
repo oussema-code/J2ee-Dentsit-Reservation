@@ -1,55 +1,59 @@
 .services-page {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem 1.5rem;
 }
 
 .services-header {
   text-align: center;
-  margin-bottom: 40px;
-  padding: 40px 20px;
+  margin-bottom: 2.5rem;
+  padding: 3rem 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 15px;
+  border-radius: 1rem;
   color: white;
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
 }
 
 .services-header h1 {
-  font-size: 2.5em;
-  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+  margin: 0 0 0.75rem 0;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .services-header .subtitle {
-  font-size: 1.2em;
+  font-size: 1.15rem;
   margin: 0;
   opacity: 0.95;
+  line-height: 1.6;
 }
 
 .admin-section {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .service-card {
   background: white;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  border-radius: 1rem;
+  padding: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
-  border: 2px solid transparent;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   border-color: #667eea;
 }
 
@@ -117,15 +121,23 @@
 .no-services {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 60px 20px;
-  background: #f8f9fa;
-  border-radius: 15px;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 1rem;
+  border: 2px dashed #cbd5e1;
 }
 
 .no-services p {
-  font-size: 1.1em;
-  color: #666;
-  margin: 10px 0;
+  font-size: 1.125rem;
+  color: #64748b;
+  margin: 0.75rem 0;
+  line-height: 1.7;
+}
+
+.no-services p:first-child {
+  font-weight: 600;
+  color: #475569;
+  font-size: 1.25rem;
 }
 
 /* Form styling */

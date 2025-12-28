@@ -52,18 +52,28 @@ const Connexion = ({ setActivePage }) => {
       </div>
       
       <div className="connexion-options">
-        <div className="connexion-card" onClick={() => { setSelectedType('patient'); setMode('login'); }}>
+        <div className="connexion-card">
           <div className="card-icon">👤</div>
           <h3>Patient</h3>
           <p>Connectez-vous ou créez un compte patient pour prendre rendez-vous</p>
-          <button className="btn btn-primary">Accéder</button>
+          <button 
+            className="btn btn-primary" 
+            onClick={() => { setSelectedType('patient'); setMode('login'); }}
+          >
+            Accéder
+          </button>
         </div>
         
-        <div className="connexion-card" onClick={() => { setSelectedType('aidesoignant'); setMode('login'); }}>
+        <div className="connexion-card">
           <div className="card-icon">👨‍⚕️</div>
           <h3>Aide-soignant</h3>
           <p>Espace dédié aux professionnels de santé</p>
-          <button className="btn btn-primary">Accéder</button>
+          <button 
+            className="btn btn-primary"
+            onClick={() => { setSelectedType('aidesoignant'); setMode('login'); }}
+          >
+            Accéder
+          </button>
         </div>
       </div>
     </div>

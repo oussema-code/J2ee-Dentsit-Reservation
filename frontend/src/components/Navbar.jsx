@@ -12,14 +12,16 @@ const Navbar = ({ setActivePage, activePage }) => {
   return (
     <nav className="navbar">
       <ul className="nav-list">
-        <li>
-          <button 
-            onClick={() => setActivePage('connexion')} 
-            className={`nav-link ${activePage === 'connexion' ? 'active' : ''}`}
-          >
-            Connexion
-          </button>
-        </li>
+        {!isAuthenticated() && (
+          <li>
+            <button 
+              onClick={() => setActivePage('connexion')} 
+              className={`nav-link ${activePage === 'connexion' ? 'active' : ''}`}
+            >
+              Connexion
+            </button>
+          </li>
+        )}
         <li>
           <button 
             onClick={() => setActivePage('service')} 

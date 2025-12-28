@@ -79,24 +79,33 @@ const Publication = () => {
   return (
     <div className="services-page">
       <div className="services-header" style={{ 
-        background: 'linear-gradient(135deg, #FF7E5F 0%, #FF6B99 100%)',
-        padding: '40px 20px',
-        borderRadius: '15px',
-        marginBottom: '30px',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        padding: '3rem 2rem',
+        borderRadius: '1rem',
+        marginBottom: '2rem',
         color: 'white',
-        textAlign: 'center'
+        textAlign: 'center',
+        boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
       }}>
-        <h1>Publications Dentaires</h1>
-        <p className="subtitle">Découvrez les dernières avancées en dentisterie pour des soins plus précis, confortables et esthétiques</p>
+        <h1 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '0.75rem' }}>Publications Dentaires</h1>
+        <p className="subtitle" style={{ fontSize: '1.1rem', opacity: 0.95 }}>Découvrez les dernières avancées en dentisterie pour des soins plus précis, confortables et esthétiques</p>
       </div>
 
       {userType === 'aidesoignant' && (
-        <div className="admin-section">
+        <div className="admin-section" style={{ marginBottom: '2rem' }}>
           <button 
             className="btn btn-primary"
             onClick={() => setShowForm(!showForm)}
+            style={{
+              padding: '0.875rem 2rem',
+              fontSize: '1.05rem',
+              fontWeight: '600',
+              borderRadius: '0.75rem',
+              boxShadow: '0 4px 6px rgba(102, 126, 234, 0.2)',
+              transition: 'all 0.3s ease'
+            }}
           >
-            {showForm ? 'Fermer' : '+ Nouvelle Publication'}
+            {showForm ? '✕ Fermer' : '+ Nouvelle Publication'}
           </button>
         </div>
       )}
@@ -104,12 +113,13 @@ const Publication = () => {
       {showForm && userType === 'aidesoignant' && (
         <div className="form-card" style={{ 
           background: 'white',
-          padding: '30px',
-          borderRadius: '10px',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-          marginBottom: '30px'
+          padding: '2.5rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
+          marginBottom: '2rem',
+          border: '1px solid #e2e8f0'
         }}>
-          <h3 style={{ color: '#333', marginBottom: '20px' }}>Créer une nouvelle publication</h3>
+          <h3 style={{ color: '#1e293b', marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: '700' }}>Créer une nouvelle publication</h3>
           <form onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group" style={{ flex: 2 }}>
@@ -214,30 +224,59 @@ const Publication = () => {
           </div>
         ) : (
           publications.map(pub => (
-            <div key={pub.idPub} className="service-card">
+            <div key={pub.idPub} className="service-card" style={{
+              background: 'white',
+              borderRadius: '1rem',
+              overflow: 'hidden',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.07)',
+              transition: 'all 0.3s ease',
+              border: '1px solid #e2e8f0'
+            }}>
               {pub.affichePub && (
                 <div style={{ 
                   width: '100%', 
                   height: '200px', 
-                  background: `url(${pub.affichePub}) center/cover`,
-                  borderRadius: '8px 8px 0 0',
-                  marginBottom: '15px'
+                  background: `linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)), url(${pub.affichePub}) center/cover`,
+                  marginBottom: '0'
                 }} />
               )}
-              <h3 className="service-title">{pub.titrePub}</h3>
-              <span 
-                className="service-badge" 
-                style={{ backgroundColor: '#FF7E5F' }}
-              >
-                {pub.typePublicationPub}
-              </span>
-              <p className="service-description">
-                {pub.resumePub}
-              </p>
-              <div className="service-footer">
-                <span style={{ fontSize: '0.9em', color: '#666' }}>
-                  📅 {pub.datePublicationPub}
+              <div style={{ padding: '1.5rem' }}>
+                <h3 className="service-title" style={{ 
+                  color: '#1e293b', 
+                  fontSize: '1.35rem', 
+                  fontWeight: '700',
+                  marginBottom: '0.75rem'
+                }}>{pub.titrePub}</h3>
+                <span 
+                  className="service-badge" 
+                  style={{ 
+                    backgroundColor: '#667eea',
+                    color: 'white',
+                    padding: '0.375rem 0.875rem',
+                    borderRadius: '9999px',
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    display: 'inline-block',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  {pub.typePublicationPub}
                 </span>
+                <p className="service-description" style={{
+                  color: '#64748b',
+                  lineHeight: '1.6',
+                  marginBottom: '1rem'
+                }}>
+                  {pub.resumePub}
+                </p>
+                <div className="service-footer" style={{ 
+                  paddingTop: '1rem',
+                  borderTop: '1px solid #e2e8f0'
+                }}>
+                  <span style={{ fontSize: '0.875rem', color: '#94a3b8', fontWeight: '500' }}>
+                    📅 {pub.datePublicationPub}
+                  </span>
+                </div>
               </div>
             </div>
           ))
