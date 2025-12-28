@@ -103,6 +103,14 @@ export const serviceMedicalApi = {
 
 // Rendez-vous API
 export const rendezVousApi = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/rendezvous`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    return response.json();
+  },
+  
   getByPatient: async (patientId) => {
     const response = await fetch(`${API_BASE_URL}/rendezvous/patient/${patientId}`);
     return response.json();
@@ -130,6 +138,22 @@ export const rendezVousApi = {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(rendezVous),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+      throw new Error(errorData.error || `HTTP ${response.status}`);
+    }
+    
+    return response.json();
+  },
+  
+  updateStatus: async (id, status) => {
+    const response = await fetch(`${API_BASE_URL}/rendezvous/${id}/status?status=${status}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     
     if (!response.ok) {

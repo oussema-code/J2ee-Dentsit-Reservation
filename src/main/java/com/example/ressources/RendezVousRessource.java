@@ -21,6 +21,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
@@ -40,6 +41,11 @@ public class RendezVousRessource {
     
     @Inject
     private DentisteService dentisteService;
+    
+    @GET
+    public List<RendezVousDTO> getAllRendezVous(){
+        return rendezVousService.findAll().stream().map(RendezVousMapper::toDTO).toList();
+    }
     
     @POST
     public Response createRendezVous(RendezVousCreatedDTO rendezVousCreatedDTO){
@@ -171,5 +177,44 @@ public class RendezVousRessource {
             slots.add(String.format("%02d:30", hour));
         }
         return slots;
+    }
+    
+    /**
+     * Update the status of a rendez-vous
+     * @param id The rendez-vous ID
+     * @param newStatus The new status (CONFIRME, EN_ATTENTE, ANNULE)
+     * @return Updated rendez-vous
+     */
+    @PUT
+    @Path("/{id}/status")
+    public Response updateStatus(
+            @PathParam("id") int id,
+            @QueryParam("status") String newStatus) {
+        
+        if (newStatus == null || newStatus.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\": \"Status parameter is required\"}")
+                    .build();
+        }
+        
+        // Validate status
+        if (!newStatus.equals("CONFIRME") && !newStatus.equals("EN_ATTENTE") && !newStatus.equals("ANNULE")) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\": \"Invalid status. Must be CONFIRME, EN_ATTENTE, or ANNULE\"}")
+                    .build();
+        }
+        
+        try {
+            RendezVous updated = rendezVousService.updateStatus(id, newStatus);
+            return Response.ok(RendezVousMapper.toDTO(updated)).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
     }
 }

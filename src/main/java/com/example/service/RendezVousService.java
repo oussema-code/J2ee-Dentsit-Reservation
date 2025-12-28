@@ -22,6 +22,11 @@ public class RendezVousService {
         return em.find(RendezVous.class, id);
     }
     
+    public List<RendezVous> findAll(){
+        return em.createQuery("SELECT r FROM RendezVous r ORDER BY r.dateRv DESC, r.heureRv DESC", RendezVous.class)
+                .getResultList();
+    }
+    
     public List<RendezVous> findByPatientId(int patientId){
         return em.createQuery(
             "SELECT r FROM RendezVous r WHERE r.patient.idP=:id",RendezVous.class
@@ -32,6 +37,15 @@ public class RendezVousService {
         return em.createQuery(
             "SELECT r FROM RendezVous r WHERE r.dentiste.idD=:id",RendezVous.class
         ).setParameter("id",dentisteId).getResultList();
+    }
+    
+    public RendezVous updateStatus(int id, String newStatus){
+        RendezVous rendezVous = findById(id);
+        if(rendezVous == null){
+            throw new IllegalArgumentException("RendezVous not found");
+        }
+        rendezVous.setStatutRv(newStatus);
+        return em.merge(rendezVous);
     }
 }
 

@@ -5,6 +5,10 @@ public class RendezVousDTO {
     private int id;
     private int idPatient;
     private int idDentiste;
+    private String nomPatient;
+    private String prenomPatient;
+    private String nomDentiste;
+    private String prenomDentiste;
     private String date;
     private String heure;
     private String statut;
@@ -13,10 +17,15 @@ public class RendezVousDTO {
     public RendezVousDTO() {
     }
 
-    public RendezVousDTO(int id, int idPatient, int idDentiste, String date, String heure, String statut, String description) {
+    public RendezVousDTO(int id, int idPatient, int idDentiste, String nomPatient, String prenomPatient, 
+                         String nomDentiste, String prenomDentiste, String date, String heure, String statut, String description) {
         this.id = id;
         this.idPatient = idPatient;
         this.idDentiste = idDentiste;
+        this.nomPatient = nomPatient;
+        this.prenomPatient = prenomPatient;
+        this.nomDentiste = nomDentiste;
+        this.prenomDentiste = prenomDentiste;
         this.date = date;
         this.heure = heure;
         this.statut = statut;
@@ -77,5 +86,37 @@ public class RendezVousDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getNomPatient() {
+        return nomPatient;
+    }
+
+    public void setNomPatient(String nomPatient) {
+        this.nomPatient = nomPatient;
+    }
+
+    public String getPrenomPatient() {
+        return prenomPatient;
+    }
+
+    public void setPrenomPatient(String prenomPatient) {
+        this.prenomPatient = prenomPatient;
+    }
+
+    public String getNomDentiste() {
+        return nomDentiste;
+    }
+
+    public void setNomDentiste(String nomDentiste) {
+        this.nomDentiste = nomDentiste;
+    }
+
+    public String getPrenomDentiste() {
+        return prenomDentiste;
+    }
+
+    public void setPrenomDentiste(String prenomDentiste) {
+        this.prenomDentiste = prenomDentiste;
     }
 }

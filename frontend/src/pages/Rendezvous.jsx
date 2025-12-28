@@ -25,10 +25,18 @@ const Rendezvous = () => {
   
   // Available time slots
   const [availableHours, setAvailableHours] = useState([]);
+  
+  // Appointments list for aide-soignant
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadDentistes();
-  }, []);
+    // Load appointments if user is aide-soignant
+    if (userType === 'aidesoignant') {
+      loadAllAppointments();
+    }
+  }, [userType]);
 
   useEffect(() => {
     if (formData.idD && formData.dateRv) {
@@ -76,6 +84,30 @@ const Rendezvous = () => {
       setDentistes(data);
     } catch (error) {
       console.error('Error loading dentistes:', error);
+    }
+  };
+  
+  const loadAllAppointments = async () => {
+    try {
+      setLoading(true);
+      const data = await rendezVousApi.getAll();
+      setAppointments(data);
+    } catch (error) {
+      console.error('Error loading appointments:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const handleStatusChange = async (appointmentId, newStatus) => {
+    try {
+      await rendezVousApi.updateStatus(appointmentId, newStatus);
+      // Reload appointments after status change
+      await loadAllAppointments();
+      alert('Statut mis à jour avec succès!');
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert(`Erreur lors de la mise à jour du statut: ${error.message}`);
     }
   };
 
@@ -183,12 +215,143 @@ const Rendezvous = () => {
     <div className="page-container">
       <h2>Prise de Rendez-vous</h2>
       
-      {!user || userType !== 'patient' ? (
-        <div className="info-card" style={{ backgroundColor: '#fff3cd', border: '1px solid #ffc107' }}>
-          <p style={{ margin: 0, color: '#856404' }}>
-            ⚠️ Vous devez être connecté en tant que patient pour prendre un rendez-vous.
-          </p>
+      {/* Display for Aide-Soignant */}
+      {userType === 'aidesoignant' && (
+        <div>
+          <div className="info-card" style={{ backgroundColor: '#d4edda', border: '1px solid #c3e6cb' }}>
+            <p style={{ margin: 0, color: '#155724' }}>
+              👨‍⚕️ <strong>Vue Aide-Soignant:</strong> Liste des rendez-vous des patients
+            </p>
+          </div>
+
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '40px' }}>
+              <p>Chargement des rendez-vous...</p>
+            </div>
+          ) : (
+            <div className="appointments-list" style={{ marginTop: '20px' }}>
+              {appointments.length === 0 ? (
+                <div className="info-card">
+                  <p>Aucun rendez-vous trouvé.</p>
+                </div>
+              ) : (
+                <div style={{ 
+                  display: 'grid', 
+                  gap: '15px',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))'
+                }}>
+                  {appointments.map((appointment) => (
+                    <div 
+                      key={appointment.id} 
+                      className="form-card"
+                      style={{
+                        borderLeft: `4px solid ${
+                          appointment.statut === 'CONFIRME' ? '#28a745' :
+                          appointment.statut === 'EN_ATTENTE' ? '#ffc107' :
+                          appointment.statut === 'ANNULE' ? '#dc3545' :
+                          '#6c757d'
+                        }`
+                      }}
+                    >
+                      <h4 style={{ marginTop: 0, color: '#0066cc' }}>
+                        Rendez-vous #{appointment.id}
+                      </h4>
+                      
+                      <div style={{ marginBottom: '10px' }}>
+                        <strong>👤 Patient:</strong> {appointment.nomPatient} {appointment.prenomPatient}
+                      </div>
+                      
+                      <div style={{ marginBottom: '10px' }}>
+                        <strong>👨‍⚕️ Dentiste:</strong> Dr. {appointment.nomDentiste} {appointment.prenomDentiste}
+                      </div>
+                      
+                      <div style={{ marginBottom: '10px' }}>
+                        <strong>📅 Date:</strong> {appointment.date}
+                      </div>
+                      
+                      <div style={{ marginBottom: '10px' }}>
+                        <strong>🕐 Heure:</strong> {appointment.heure}
+                      </div>
+                      
+                      <div style={{ marginBottom: '10px' }}>
+                        <strong>Statut:</strong>{' '}
+                        <span style={{
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          fontSize: '0.9em',
+                          fontWeight: 'bold',
+                          backgroundColor: 
+                            appointment.statut === 'CONFIRME' ? '#d4edda' :
+                            appointment.statut === 'EN_ATTENTE' ? '#fff3cd' :
+                            appointment.statut === 'ANNULE' ? '#f8d7da' :
+                            '#e2e3e5',
+                          color:
+                            appointment.statut === 'CONFIRME' ? '#155724' :
+                            appointment.statut === 'EN_ATTENTE' ? '#856404' :
+                            appointment.statut === 'ANNULE' ? '#721c24' :
+                            '#383d41'
+                        }}>
+                          {appointment.statut}
+                        </span>
+                      </div>
+                      
+                      {appointment.description && (
+                        <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#f8f9fa', borderRadius: '4px' }}>
+                          <strong>Description:</strong>
+                          <p style={{ margin: '5px 0 0', whiteSpace: 'pre-wrap' }}>
+                            {appointment.description}
+                          </p>
+                        </div>
+                      )}
+                      
+                      {/* Status Change Buttons */}
+                      <div style={{ marginTop: '15px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        {appointment.statut !== 'CONFIRME' && (
+                          <button
+                            onClick={() => handleStatusChange(appointment.id, 'CONFIRME')}
+                            className="btn btn-success"
+                            style={{ padding: '6px 12px', fontSize: '0.85em' }}
+                          >
+                            ✓ Confirmer
+                          </button>
+                        )}
+                        {appointment.statut !== 'EN_ATTENTE' && (
+                          <button
+                            onClick={() => handleStatusChange(appointment.id, 'EN_ATTENTE')}
+                            className="btn"
+                            style={{ padding: '6px 12px', fontSize: '0.85em', backgroundColor: '#ffc107', color: '#856404', border: 'none' }}
+                          >
+                            ⏳ En attente
+                          </button>
+                        )}
+                        {appointment.statut !== 'ANNULE' && (
+                          <button
+                            onClick={() => handleStatusChange(appointment.id, 'ANNULE')}
+                            className="btn btn-danger"
+                            style={{ padding: '6px 12px', fontSize: '0.85em' }}
+                          >
+                            ✗ Annuler
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
+      )}
+      
+      {/* Display for Patient */}
+      {!user || userType !== 'patient' ? (
+        userType !== 'aidesoignant' && (
+          <div className="info-card" style={{ backgroundColor: '#fff3cd', border: '1px solid #ffc107' }}>
+            <p style={{ margin: 0, color: '#856404' }}>
+              ⚠️ Vous devez être connecté en tant que patient pour prendre un rendez-vous.
+            </p>
+          </div>
+        )
       ) : (
         <>
           <button 
@@ -447,14 +610,16 @@ const Rendezvous = () => {
         </>
       )}
 
-      <div className="info-card">
-        <h3>Calendrier des rendez-vous</h3>
-        <p>Réservez votre rendez-vous et sélectionnez les services dentaires souhaités.</p>
-        <p>Vous pouvez choisir plusieurs services lors d'une même visite.</p>
-        <p style={{ marginTop: '15px', padding: '10px', backgroundColor: '#e7f3ff', borderRadius: '5px' }}>
-          💡 <strong>Astuce:</strong> Les créneaux horaires disponibles sont automatiquement filtrés en fonction du dentiste et de la date sélectionnés.
-        </p>
-      </div>
+      {userType === 'patient' && (
+        <div className="info-card">
+          <h3>Calendrier des rendez-vous</h3>
+          <p>Réservez votre rendez-vous et sélectionnez les services dentaires souhaités.</p>
+          <p>Vous pouvez choisir plusieurs services lors d'une même visite.</p>
+          <p style={{ marginTop: '15px', padding: '10px', backgroundColor: '#e7f3ff', borderRadius: '5px' }}>
+            💡 <strong>Astuce:</strong> Les créneaux horaires disponibles sont automatiquement filtrés en fonction du dentiste et de la date sélectionnés.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
