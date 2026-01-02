@@ -24,7 +24,7 @@ const AideSoignantLogin = ({ onSwitchToRegister, setActivePage }) => {
     try {
       const aideSoignant = await authApi.loginAideSoignant(formData.email, formData.mdp);
       login(aideSoignant, 'aidesoignant');
-      setActivePage('publication-form');
+      setActivePage('rendezvous');
     } catch (error) {
       console.error('Login error:', error);
       setError(error.message || 'Email ou mot de passe incorrect');
